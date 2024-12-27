@@ -1,153 +1,111 @@
+Here’s a consolidated explanation of **Task-1** and **Task-2** of the Edupredict project:
 
-# Edupredict Project
+---
 
-## Overview
-**Edupredict** is a machine learning project aimed at predicting the academic year and placement status of students based on their historical academic performance and other relevant factors. The project consists of two primary tasks:
+### **Edupredict Project**
 
-1. **Year Prediction**: Predicting the academic year a student belongs to.
-2. **Placement Status Prediction**: Predicting whether a student will be placed in a company after graduation.
+---
 
-The primary goal of this project is to use machine learning algorithms to help educational institutions make better decisions related to student progress and placements. It also helps students gauge their placement readiness based on their performance.
+### **Task 1: Predicting Year of Graduation**
+**Objective**:  
+The goal of this task was to predict the graduation year of students using data parameters like academic year, creation date, and other relevant factors. 
 
-## Problem Statement
-1. **Year Prediction**:
-   - Educational institutions often struggle with efficiently determining which academic year a student should be in based on their performance, attendance, and other factors.
-   - By predicting a student's year, the system can better identify and assist students who might be lagging in their academic progress.
-   
-2. **Placement Status Prediction**:
-   - Placement outcomes are crucial for students, and various factors impact whether a student will get placed, including academic performance, internships, extracurricular activities, etc.
-   - Predicting placement status can provide students with early insights into their employability chances, allowing them to focus on areas for improvement.
+---
 
-## Features and Tasks
+### **Overview of Dataset**:  
+- **Total Rows**: 2808 unique entries after removing duplicates.  
+- **Key Features**:  
+  - **Email**: Identifier for deduplication.  
+  - **Colleges & New College Name**: Merged to create a consolidated "College" field.  
+  - **Branch/ Specialization & Other Branch**: Combined into a single "Branch" column.  
+  - **Gender, City**: Used for demographic analysis.  
+  - **Academic Year** and **What is your current academic year?**: Used to derive the year of graduation.  
+  - **Created**: Timestamp of data entry, used for extracting the year and month of creation.  
 
-### Task 1: Year Prediction
-In this task, the goal is to predict the academic year of a student (e.g., first year, second year, third year, etc.) based on features like historical grades, attendance, and performance in previous years.
+---
 
-#### Objective
-- To predict the academic year of a student.
+### **Data Preprocessing**:
+1. Removed duplicates using the `Email` field.  
+2. Merged related columns (`Branch`, `College`).  
+3. Replaced missing values with 0 or blanks where necessary.  
+4. Extracted useful time-based features (Month, Year) from the `Created` column.  
+5. Harmonized data types and values in the `Academic Year` column to ensure uniformity.
 
-#### Features Used
-- **Grades**: Performance in various subjects.
-- **Attendance**: Number of classes attended.
-- **Past performance**: Results from previous academic years.
+---
 
-#### Approach
-- **Data Preprocessing**: Clean the data by handling missing values, normalizing numerical features, and encoding categorical variables.
-- **Machine Learning Models**: Models such as Decision Trees, Random Forest, and Logistic Regression are used for the prediction task.
-- **Evaluation Metrics**: Accuracy, Precision, Recall, and F1-Score are used to evaluate model performance.
+### **Approach**:  
+The task utilized logic-based transformations to predict the year of graduation:
+1. Mapped academic years (1st to 4th year) to calculate the number of years left to graduation.  
+2. Added these to the creation year (`Created.Year`) to derive the final graduation year.  
+3. For entries missing academic year data, placeholders (0 or blank) were used.
 
-#### Outcome
-- A classifier that predicts a student's academic year based on the input features.
+---
 
-### Task 2: Placement Status Prediction
-In this task, the goal is to predict whether a student will be placed in a company based on various factors like academic performance, extracurricular activities, and internship experience.
+### **Data Analysis & Visualization**:  
+- **Gender Distribution**: Analyzed the attendee gender demographics.  
+- **City Representation**: Evaluated attendance based on city.  
+- **Branch Analysis**: Visualized participation based on engineering branches.  
+- **Interest in Programs and Events**: Gauged interest in Cloud Counselage programs and events.  
+- **Recommendation Trends**: Assessed whether participants recommended Cloud Counselage to others.  
+- **Event Awareness Platforms**: Investigated how participants learned about the event.
 
-#### Objective
-- To predict whether a student will get placed or not (binary classification: "Placed" or "Not Placed").
+These analyses were performed using libraries like **Plotly**, **Seaborn**, and **Matplotlib**.
 
-#### Features Used
-- **Academic performance**: Marks in relevant subjects.
-- **Extracurricular activities**: Participation in clubs, societies, or sports.
-- **Internships**: Past internship experience, if any.
-- **Previous placement records**: Placement history from earlier batches.
+---
 
-#### Approach
-- **Data Preprocessing**: Handle missing data, normalize numerical values, and encode categorical variables like placement status.
-- **Machine Learning Models**: Logistic Regression, Support Vector Machines (SVM), and Random Forest are experimented with for prediction.
-- **Evaluation Metrics**: Accuracy, Precision, Recall, and F1-Score to evaluate how well the model predicts placement status.
+### **Results**:  
+- A new column, **Year of Graduation**, was added to the dataset.  
+- The data was exported to Excel (`Predicted Year of Graduation.xlsx`) and CSV formats for further use.  
+- **No machine learning models were used** in this task as it was rule-based and heavily dependent on logic derived from the data.
 
-#### Outcome
-- A model that classifies a student as "Placed" or "Not Placed" with the given features.
+---
 
-## Technologies Used
-- **Python**: Programming language used for implementing the project.
-- **Libraries**:
-  - **Pandas**: For data manipulation and cleaning.
-  - **NumPy**: For numerical operations.
-  - **Matplotlib/Seaborn**: For visualizing data.
-  - **Scikit-learn**: For machine learning models and evaluation metrics.
-  - **Jupyter Notebook**: For an interactive development environment.
-  
-## Dataset
-The dataset used in this project includes various features related to students' academic performance and placement data.
+#### **Task-2: Placement Prediction Model**
 
-### Dataset Information
-The dataset contains the following columns:
-- **Student_ID**: Unique identifier for each student.
-- **Academic_Performance**: Marks scored in major subjects.
-- **Attendance**: Percentage of classes attended by the student.
-- **Extracurricular_Activity**: Participation in extracurricular activities (binary: Yes/No).
-- **Internship_Experience**: Whether the student has an internship experience (binary: Yes/No).
-- **Past_Placements**: Placement history (binary: Yes/No).
-- **Year**: Academic year (1st, 2nd, etc.).
-- **Placement_Status**: Whether the student was placed (binary: Yes/No).
+**Objective**  
+To develop a predictive model that accurately forecasts student placement outcomes using various factors.  
 
-### Data Preprocessing
-1. **Missing Data**: Handle missing values by either filling them with appropriate statistics (mean, median) or by dropping rows with missing values.
-2. **Normalization**: Standardize numerical features such as marks and attendance to a common scale.
-3. **Encoding**: Convert categorical data like extracurricular activities and placement status into numerical representations using one-hot encoding or label encoding.
+**Goal**  
+- Build a robust, high-accuracy model to predict placement status.  
+- Facilitate targeted support and informed decision-making for better educational strategies.  
 
-## Approach
+**Dataset Overview**  
+The dataset included:  
+- **Demographics**: Name, email ID.  
+- **Event Participation**: Ticket type, designation.  
+- **Academic Performance**: CGPA.  
+- **Skills**: Speaking skills, ML knowledge.  
+- **Placement Status**: Historical outcomes.  
 
-1. **Data Preprocessing**: Clean the data, handle missing values, normalize numerical features, and encode categorical variables.
-2. **Exploratory Data Analysis (EDA)**: 
-   - Visualize the relationship between features and target variables.
-   - Identify patterns, correlations, and outliers in the data.
-3. **Model Selection**:
-   - **Year Prediction**: Logistic Regression, Decision Trees, and Random Forest models are used for classification.
-   - **Placement Status Prediction**: Logistic Regression, SVM, and Random Forest models are used.
-4. **Model Training**: Split the data into training and testing sets, then train the models using cross-validation.
-5. **Model Evaluation**: Evaluate the performance of models using classification metrics like Accuracy, Precision, Recall, and F1-Score.
-6. **Prediction**: Use the trained models to make predictions on unseen data.
+**Data Preprocessing**  
+- Handled missing values and duplicates.  
+- Addressed data inconsistencies.  
+- Applied feature engineering.  
+- Label-encoded categorical variables to prepare for modeling.  
 
-## Installation
+**Model Selection and Training**  
+Multiple classification models were evaluated, achieving the following accuracies:  
+- **AdaBoost Classifier**: 74.12% (highest accuracy).  
+- **Random Forest Classifier**: 63.07%.  
+- **Logistic Regression**: 70% 
+- **KNeighborsClassifier**: 67.09%.  
+- **SVM**: 70.60%.  
+- **Decision Tree Classifier**: 58.04%.  
+- **Neural Networks (MLP Classifier)**: 70.85%.  
+- **XGBoost Classifier**: 67.59%.  
+- **GradientBoostingClassifier**: 69.10%.  
+- **BaggingClassifier**: 62.81%.  
+- **ExtraTreesClassifier**: 60.55%.  
 
-### Prerequisites
-Make sure you have Python 3.x installed on your machine. You can download it from [Python Official Website](https://www.python.org/downloads/).
+**Results**  
+- **AdaBoost Classifier** emerged as the best model with **74.12% accuracy**, demonstrating superior predictive capabilities.  
+- Other models achieved varying accuracies, indicating the need for model-specific optimization.  
 
-### Clone the Repository
-To get started, clone the repository to your local machine:
-```bash
-git clone https://github.com/yourusername/edupredict.git
-cd edupredict
-```
+**Further Considerations**  
+1. **Hyperparameter Tuning**: Fine-tune parameters to enhance model performance.  
+2. **Feature Importance Analysis**: Identify the most influential factors affecting placement.  
+3. **Model Explainability**: Improve transparency for better stakeholder understanding.  
+4. **Error Analysis**: Analyze misclassifications to refine the model further.  
 
-### Install Dependencies
-Create a virtual environment and install the required dependencies:
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows, use venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### Run the Project
-Once all dependencies are installed, you can run the project using Jupyter Notebook:
-```bash
-jupyter notebook
-```
-
-### Running the Model
-Run the notebook containing the code for both tasks. You can modify the notebook to suit your needs or experiment with different algorithms.
-
-## Results
-
-### Year Prediction Task
-- **Model**: Random Forest
-- **Accuracy**: 85%
-- **Precision**: 0.84
-- **Recall**: 0.86
-- **F1-Score**: 0.85
-
-### Placement Status Prediction Task
-- **Model**: Logistic Regression
-- **Accuracy**: 90%
-- **Precision**: 0.89
-- **Recall**: 0.91
-- **F1-Score**: 0.90
-
-## Future Work
-- **Incorporating Additional Features**: Future iterations of the project could incorporate more features such as social media activity, peer reviews, etc., to further improve predictions.
-- **Deep Learning Models**: Explore the use of deep learning models, such as neural networks, for more accurate predictions.
-- **Real-Time Prediction**: Implement a system that can predict the academic year and placement status for incoming students in real-time.
-
-
+**Conclusion**  
+By leveraging the placement prediction model and engagement scoring system, the Edupredict project provides comprehensive insights into student involvement and placement readiness, aiding institutions in fostering academic and career success.
