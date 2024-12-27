@@ -1,7 +1,7 @@
-Here’s a consolidated explanation of **Task-1** and **Task-2** of the Edupredict project:
+# *Reference*
+Task-1: https://colab.research.google.com/drive/1_DGnIYnGUIZ1cq2JlOcv0DJrXTwwoQKo?usp=sharing
 
----
-
+Task-2: https://colab.research.google.com/drive/1lr4jDFC9gngFhz55LOoVd3bSYyu9RKiL?usp=sharing
 ### **Edupredict Project**
 
 ---
