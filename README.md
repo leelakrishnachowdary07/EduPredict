@@ -62,50 +62,68 @@ These analyses were performed using libraries like **Plotly**, **Seaborn**, and 
 
 #### **Task-2: Placement Prediction Model**
 
-**Objective**  
-To develop a predictive model that accurately forecasts student placement outcomes using various factors.  
 
-**Goal**  
-- Build a robust, high-accuracy model to predict placement status.  
-- Facilitate targeted support and informed decision-making for better educational strategies.  
+#### **Steps Involved in the Code**
+1. **Data Preprocessing**:
+   - Loaded the dataset and inspected it for missing values, outliers, and inconsistencies.
+   - Categorical variables were encoded using techniques like one-hot encoding or label encoding.
+   - The dataset was split into training and validation sets (e.g., 80-20 split).
+   - Applied feature scaling (standardization or normalization) for models sensitive to scaling (e.g., Logistic Regression, SVM, MLP).
 
-**Dataset Overview**  
-The dataset included:  
-- **Demographics**: Name, email ID.  
-- **Event Participation**: Ticket type, designation.  
-- **Academic Performance**: CGPA.  
-- **Skills**: Speaking skills, ML knowledge.  
-- **Placement Status**: Historical outcomes.  
+2. **Model Selection**:
+   - Implemented various classification and regression models using popular libraries like `scikit-learn` and `xgboost`.
+   - For classification, the target variable was treated as categorical, while for regression, it was treated as continuous.
 
-**Data Preprocessing**  
-- Handled missing values and duplicates.  
-- Addressed data inconsistencies.  
-- Applied feature engineering.  
-- Label-encoded categorical variables to prepare for modeling.  
+3. **Training the Models**:
+   - Each model was trained using the training dataset.
+   - Default hyperparameters were used initially to evaluate baseline performance.
 
-**Model Selection and Training**  
-Multiple classification models were evaluated, achieving the following accuracies:  
-- **AdaBoost Classifier**: 74.12% (highest accuracy).  
-- **Random Forest Classifier**: 63.07%.  
-- **Logistic Regression**: 70% 
-- **KNeighborsClassifier**: 67.09%.  
-- **SVM**: 70.60%.  
-- **Decision Tree Classifier**: 58.04%.  
-- **Neural Networks (MLP Classifier)**: 70.85%.  
-- **XGBoost Classifier**: 67.59%.  
-- **GradientBoostingClassifier**: 69.10%.  
-- **BaggingClassifier**: 62.81%.  
-- **ExtraTreesClassifier**: 60.55%.  
+4. **Evaluation**:
+   - For classification, used metrics like **accuracy**, **precision**, **recall**, and **F1-score** for performance evaluation.
+   - For regression, used **Mean Squared Error (MSE)** and **R² Score**.
 
-**Results**  
-- **AdaBoost Classifier** emerged as the best model with **74.12% accuracy**, demonstrating superior predictive capabilities.  
-- Other models achieved varying accuracies, indicating the need for model-specific optimization.  
+5. **Performance Comparison**:
+   - Consolidated results of all models to identify the best-performing ones for both classification and regression tasks.
 
-**Further Considerations**  
-1. **Hyperparameter Tuning**: Fine-tune parameters to enhance model performance.  
-2. **Feature Importance Analysis**: Identify the most influential factors affecting placement.  
-3. **Model Explainability**: Improve transparency for better stakeholder understanding.  
-4. **Error Analysis**: Analyze misclassifications to refine the model further.  
+6. **Hyperparameter Tuning**:
+   - Identified key hyperparameters for top-performing models and performed tuning using **GridSearchCV** or **RandomizedSearchCV**.
 
-**Conclusion**  
-By leveraging the placement prediction model and engagement scoring system, the Edupredict project provides comprehensive insights into student involvement and placement readiness, aiding institutions in fostering academic and career success.
+---
+
+### **Classification Models Performance**
+| **Model**                 | **Validation Accuracy (%)** | **Performance Summary**                                                                                   |
+|---------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------|
+| **RandomForestClassifier** | 63.07                      | Moderate performance with balanced precision and recall (~60%).                                           |
+| **LogisticRegression**     | 69.85                      | High recall for class 2 but struggles with class 1. Convergence warnings observed.                        |
+| **KNeighborsClassifier**   | 67.08                      | Performs well on class 2 but poor for class 1. Performance depends on `n_neighbors`.                      |
+| **SVC (SVM)**              | 70.60                      | Good overall performance, especially for class 2. Requires scaled features for better results.            |
+| **DecisionTreeClassifier** | 58.04                      | Poor performance, likely due to overfitting.                                                             |
+| **MLPClassifier**          | 70.85                      | Performs well overall but struggles with class 1 predictions. Scaling and tuning may improve results.     |
+| **XGBoostClassifier**      | 67.59                      | Shows potential, but struggles with class 1. Hyperparameter tuning required.                              |
+| **GradientBoostingClassifier** | 69.10                  | Balanced accuracy but struggles with class 1. Needs fine-tuning for better performance.                   |
+| **AdaBoostClassifier**     | 74.12                      | **Best-performing model**; good accuracy for classes 0 and 2, but recall for class 1 remains an issue.     |
+| **BaggingClassifier**      | 62.81                      | Comparable to RandomForest but with slightly lower performance.                                           |
+| **ExtraTreesClassifier**   | 60.55                      | Underperformed compared to RandomForest.                                                                 |
+
+---
+
+### **Regression Models Performance**
+| **Model**                 | **MSE** | **R² Score** | **Performance Summary**                                                                                    |
+|---------------------------|---------|--------------|------------------------------------------------------------------------------------------------------------|
+| **LinearRegression**      | 0.585   | 0.185        | Poor performance; linear assumptions do not hold well for the dataset.                                     |
+| **Ridge Regression**       | 0.585   | 0.185        | Similar to LinearRegression; slightly better handling of multicollinearity.                                |
+| **Lasso Regression**       | 0.596   | 0.170        | Slightly worse than Ridge due to higher regularization, reducing model complexity too aggressively.         |
+| **DecisionTreeRegressor**  | 1.136   | -0.582       | Overfits the data, resulting in poor generalization to the validation set.                                 |
+
+---
+
+### **Key Observations**
+1. **Best Classification Model**:
+   - **AdaBoostClassifier** with a validation accuracy of 74.12%.  
+   - Struggles with recall for class 1, indicating room for improvement via class balancing or further tuning.  
+
+2. **Regression Models**:
+   - None of the regression models performed satisfactorily, with the highest R² score being 0.185 (Linear/Ridge Regression).  
+   - The DecisionTreeRegressor performed the worst, likely due to overfitting.
+
+---
